@@ -16,7 +16,13 @@ class IntentActivity : AppCompatActivity() {
         setContentView(R.layout.activity_intent)
 
         val person = intent.getSerializableExtra("person_data") as Person
-        Log.d(Companion.TAG, "person name is ${person.name}, age is ${person.age}")
+        Log.d(TAG, "person name is ${person.name}, age is ${person.age}")
+
+        val book = intent.getParcelableExtra<Book>("book_data")
+        Log.d(TAG, "book name is ${book?.bookName}, pages num is ${book?.pages}")
+
+        val movie = intent.getParcelableExtra<Movie>("movie_data")
+        Log.d(TAG, "movie name is ${movie?.movieName}, and the time is ${movie?.time}")
     }
 
 }
