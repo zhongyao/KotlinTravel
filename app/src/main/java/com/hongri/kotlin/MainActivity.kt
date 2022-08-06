@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import com.hongri.kotlin.chapter3.FirstActivity
 import com.hongri.kotlin.intent.Book
 import com.hongri.kotlin.intent.IntentActivity
 import com.hongri.kotlin.intent.Movie
@@ -12,11 +13,13 @@ import com.hongri.kotlin.intent.Person
 class MainActivity : AppCompatActivity() {
 
     lateinit var intentBtn: Button
+    lateinit var activityBtn: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         intentBtn = findViewById(R.id.intentBtn)
+        activityBtn = findViewById(R.id.activityBtn);
         intentBtn.setOnClickListener {
 
             val person = Person()
@@ -33,6 +36,11 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("person_data", person)
             intent.putExtra("book_data", book)
             intent.putExtra("movie_data", movie)
+            startActivity(intent)
+        }
+
+        activityBtn.setOnClickListener {
+            val intent = Intent(this, FirstActivity::class.java)
             startActivity(intent)
         }
     }

@@ -4,34 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".chapter3.FirstActivity">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
         android:gravity="center_horizontal"
-        android:text="KotlinTravel"
+        android:padding="10dp"
+        android:text="Activity相关"
         android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/intentBtn"
+        android:id="@+id/btn1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="使用Intent传递对象"
-        android:textStyle="bold"
+        android:layout_margin="10dp"
+        android:text="测试"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />
-
-    <Button
-        android:id="@+id/activityBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Activity相关"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/intentBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
