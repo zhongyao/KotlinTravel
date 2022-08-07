@@ -40,6 +40,10 @@ class FirstActivity : AppCompatActivity() {
             intent.putExtra("name", name)
             startActivityForResult(intent, 100)
         }
+
+        btn5.setOnClickListener {
+            SecondActivity.actionStart(this, "哈哈", "呵呵")
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
