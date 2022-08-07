@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -11,6 +12,7 @@ import com.hongri.kotlin.R
 import kotlinx.android.synthetic.main.activity_first.*
 
 class FirstActivity : AppCompatActivity() {
+    private val TAG = "FirstActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_first)
@@ -43,6 +45,22 @@ class FirstActivity : AppCompatActivity() {
 
         btn5.setOnClickListener {
             SecondActivity.actionStart(this, "哈哈", "呵呵")
+        }
+
+        /**
+         * with函数
+         */
+        btn6.setOnClickListener {
+            val list = listOf("apple", "orange", "banana", "pear", "grape")
+            val result = with(StringBuilder()) {
+                append("Start eating fruits. \n")
+                for (fruit in list) {
+                    append(fruit).append("\n")
+                }
+                append("Ate all fruits.")
+                toString()
+            }
+            Log.d(TAG,  result)
         }
     }
 
