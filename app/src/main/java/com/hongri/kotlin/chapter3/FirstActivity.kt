@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.hongri.kotlin.R
 import com.hongri.kotlin.util.Util
 import com.hongri.kotlin.util.Util2
+import com.hongri.kotlin.util.doSomething
 import kotlinx.android.synthetic.main.activity_first.*
 
 class FirstActivity : AppCompatActivity() {
@@ -73,6 +74,10 @@ class FirstActivity : AppCompatActivity() {
             Util.doAction()
             //companion object
             Util2.doAction2()
+            //顶层方法
+            doSomething()
+            //Java中需这样调用 顶层方法
+//            HelperKt.doSomething()
         }
 
     }
