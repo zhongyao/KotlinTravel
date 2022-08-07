@@ -35,10 +35,18 @@ class SecondActivity : AppCompatActivity() {
      * 所有定义在companion object中的方法都可以使用类似于Java静态方法的形式调用。
      */
     companion object {
+//        fun actionStart(context: Context, data1: String, data2: String) {
+//            val intent = Intent(context, SecondActivity::class.java)
+//            intent.putExtra("params1", data1)
+//            intent.putExtra("params2", data2)
+//            context.startActivity(intent)
+//        }
+        //上面方法可以用下面代替[apply函数的应用]
         fun actionStart(context: Context, data1: String, data2: String) {
-            val intent = Intent(context, SecondActivity::class.java)
-            intent.putExtra("params1", data1)
-            intent.putExtra("params2", data2)
+            val intent = Intent(context, SecondActivity::class.java).apply {
+                putExtra("params1", data1)
+                putExtra("params2", data2)
+            }
             context.startActivity(intent)
         }
     }
