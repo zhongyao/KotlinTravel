@@ -9,6 +9,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.hongri.kotlin.R
+import com.hongri.kotlin.util.Util
+import com.hongri.kotlin.util.Util2
 import kotlinx.android.synthetic.main.activity_first.*
 
 class FirstActivity : AppCompatActivity() {
@@ -62,6 +64,17 @@ class FirstActivity : AppCompatActivity() {
             }
             Log.d(TAG,  result)
         }
+
+        /**
+         * 静态方法调用方式举例
+         */
+        btn7.setOnClickListener {
+            //单例
+            Util.doAction()
+            //companion object
+            Util2.doAction2()
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
