@@ -18,7 +18,7 @@ class RecyclerViewActivity : AppCompatActivity() {
 
         initFruits()
         //默认纵向列表
-//        rv.layoutManager = LinearLayoutManager(this)
+        rv.layoutManager = LinearLayoutManager(this)
         //横向列表
 //        rv.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
 
