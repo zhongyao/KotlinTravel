@@ -12,6 +12,13 @@ import kotlinx.android.synthetic.main.activity_recycler_view.*
 
 class RecyclerViewActivity : AppCompatActivity() {
     private val fruitList = ArrayList<Fruit>()
+
+    /**
+     * 延迟初始化使用的是lateinit关键字，他可以告诉kotlin编译器，
+     *
+     *我会在晚些时候对这个变量进行初始化，这样就不用在一开始的时候就将它赋值为null了
+     */
+    private lateinit var fruitAdapter: FruitAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recycler_view)
@@ -32,7 +39,8 @@ class RecyclerViewActivity : AppCompatActivity() {
         //瀑布纵向
 //        rv.layoutManager = StaggeredGridLayoutManager(3, RecyclerView.HORIZONTAL)
 
-        rv.adapter = FruitAdapter(fruitList)
+        fruitAdapter = FruitAdapter(fruitList)
+        rv.adapter = fruitAdapter
     }
 
     private fun initFruits() {
