@@ -2,7 +2,10 @@ package com.hongri.kotlin.chapter4.recycler
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.hongri.kotlin.R
 import com.hongri.kotlin.chapter4.recycler.bean.Fruit
 import kotlinx.android.synthetic.main.activity_recycler_view.*
@@ -14,7 +17,21 @@ class RecyclerViewActivity : AppCompatActivity() {
         setContentView(R.layout.activity_recycler_view)
 
         initFruits()
-        rv.layoutManager = LinearLayoutManager(this)
+        //默认纵向列表
+//        rv.layoutManager = LinearLayoutManager(this)
+        //横向列表
+//        rv.layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
+
+        //网格纵向
+//        rv.layoutManager = GridLayoutManager(this,3, RecyclerView.VERTICAL, false)
+        //网格横向
+//        rv.layoutManager = GridLayoutManager(this,3, RecyclerView.HORIZONTAL, false)
+
+        //瀑布横向【瀑布流布局需要item项高度不一致才能看出明显效果】
+//        rv.layoutManager = StaggeredGridLayoutManager(3, RecyclerView.VERTICAL)
+        //瀑布纵向
+//        rv.layoutManager = StaggeredGridLayoutManager(3, RecyclerView.HORIZONTAL)
+
         rv.adapter = FruitAdapter(fruitList)
     }
 
