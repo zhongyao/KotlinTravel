@@ -43,10 +43,38 @@
         app:layout_constraintTop_toBottomOf="@id/restoreSpBtn" />
 
     <Button
+        android:id="@+id/upgradeSQLBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="upgrade数据库"
+        app:layout_constraintTop_toBottomOf="@id/createSQLBtn" />
+
+    <Button
+        android:id="@+id/insertSQLBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="insert"
+        app:layout_constraintTop_toBottomOf="@id/upgradeSQLBtn" />
+
+    <Button
         android:id="@+id/updateSQLBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="update数据库"
-        app:layout_constraintTop_toBottomOf="@id/createSQLBtn" />
+        android:text="update"
+        app:layout_constraintTop_toBottomOf="@id/insertSQLBtn" />
+
+    <Button
+        android:id="@+id/deleteSQLBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="delete"
+        app:layout_constraintTop_toBottomOf="@id/updateSQLBtn" />
+
+    <Button
+        android:id="@+id/selectSQLBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="select"
+        app:layout_constraintTop_toBottomOf="@id/deleteSQLBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

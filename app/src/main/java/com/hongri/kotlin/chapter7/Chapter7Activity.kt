@@ -1,5 +1,6 @@
 package com.hongri.kotlin.chapter7
 
+import android.content.ContentValues
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -75,9 +76,29 @@ class Chapter7Activity : AppCompatActivity() {
             dbHelper.writableDatabase
         }
 
-        updateSQLBtn.setOnClickListener {
+        upgradeSQLBtn.setOnClickListener {
             val dbHelper = MyDatabaseHelper(this, "BookStore.db", 3)
             dbHelper.writableDatabase
+        }
+
+        val dbHelper = MyDatabaseHelper(this, "BookStore.db", 3)
+        insertSQLBtn.setOnClickListener {
+            val db = dbHelper.writableDatabase
+            val value1 = ContentValues().apply {
+                put("name", "yao book")
+                put("author", "yao")
+                put("pages", 454)
+                put("price", 16.98)
+            }
+            db.insert("Book", null, value1)
+
+            val value2 = ContentValues().apply {
+                put("name", "hongri book")
+                put("author", "hongri")
+                put("pages", 510)
+                put("price", 19.93)
+            }
+            db.insert("Book", null, value2)
         }
     }
 }
