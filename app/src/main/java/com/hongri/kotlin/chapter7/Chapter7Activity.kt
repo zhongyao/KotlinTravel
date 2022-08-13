@@ -107,5 +107,10 @@ class Chapter7Activity : AppCompatActivity() {
             values.put("price", 10.99)
             db.update("Book", values, "name = ?", arrayOf("yao book"))
         }
+
+        deleteSQLBtn.setOnClickListener {
+            val db = dbHelper.writableDatabase
+            db.delete("Book", "pages > ?", arrayOf("500"))
+        }
     }
 }
