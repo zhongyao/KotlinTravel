@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import com.hongri.kotlin.R
 import kotlinx.android.synthetic.main.activity_chapter7.*
@@ -13,6 +14,7 @@ import java.io.*
  * 数据存储Activity
  */
 class Chapter7Activity : AppCompatActivity() {
+    private var TAG = "Chapter7Activity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chapter7)
@@ -111,6 +113,26 @@ class Chapter7Activity : AppCompatActivity() {
         deleteSQLBtn.setOnClickListener {
             val db = dbHelper.writableDatabase
             db.delete("Book", "pages > ?", arrayOf("500"))
+        }
+
+        selectSQLBtn.setOnClickListener {
+            val db = dbHelper.writableDatabase
+            //查询表中所有数据
+            val cursor = db.query("Book", null, null, null, null, null, null, null)
+            if (cursor.moveToFirst()) {
+                do {
+                    //遍历cursor对象，取出数据并打印
+                    val name = cursor.getString(cursor.getColumnIndex("name"))
+                    val author = cursor.getString(cursor.getColumnIndex("author"))
+                    val pages = cursor.getString(cursor.getColumnIndex("pages"))
+                    val price = cursor.getString(cursor.getColumnIndex("price"))
+                    Log.d(TAG, "book name is $name")
+                    Log.d(TAG, "book author is $author")
+                    Log.d(TAG, "book pages is $pages")
+                    Log.d(TAG, "book price is $price")
+                } while (cursor.moveToNext())
+            }
+            cursor.close()
         }
     }
 }
