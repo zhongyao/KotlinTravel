@@ -35,4 +35,18 @@
         android:text="获取SP"
         app:layout_constraintTop_toBottomOf="@id/saveSpBtn" />
 
+    <Button
+        android:id="@+id/createSQLBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="create数据库"
+        app:layout_constraintTop_toBottomOf="@id/restoreSpBtn" />
+
+    <Button
+        android:id="@+id/updateSQLBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="update数据库"
+        app:layout_constraintTop_toBottomOf="@id/createSQLBtn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

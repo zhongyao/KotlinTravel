@@ -69,5 +69,15 @@ class Chapter7Activity : AppCompatActivity() {
             Toast.makeText(this, "name:$name gender:$gender goodman:$goodman", Toast.LENGTH_LONG)
                 .show()
         }
+
+        createSQLBtn.setOnClickListener {
+            val dbHelper = MyDatabaseHelper(this, "BookStore.db", 1)
+            dbHelper.writableDatabase
+        }
+
+        updateSQLBtn.setOnClickListener {
+            val dbHelper = MyDatabaseHelper(this, "BookStore.db", 3)
+            dbHelper.writableDatabase
+        }
     }
 }
