@@ -77,4 +77,18 @@
         android:text="select"
         app:layout_constraintTop_toBottomOf="@id/deleteSQLBtn" />
 
+    <Button
+        android:id="@+id/transactionBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="事务"
+        app:layout_constraintTop_toBottomOf="@id/selectSQLBtn" />
+
+    <Button
+        android:id="@+id/upgradeBetterBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="upgrade数据库【推荐】"
+        app:layout_constraintTop_toBottomOf="@id/transactionBtn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

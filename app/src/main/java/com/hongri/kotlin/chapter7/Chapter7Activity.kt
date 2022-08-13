@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.hongri.kotlin.R
 import kotlinx.android.synthetic.main.activity_chapter7.*
 import java.io.*
+import java.lang.NullPointerException
 
 /**
  * 数据存储Activity
@@ -148,6 +149,26 @@ class Chapter7Activity : AppCompatActivity() {
 
             //SQL查询数据
 //            val cursor = db.rawQuery("select * from Book", null)
+        }
+
+        transactionBtn.setOnClickListener {
+            val db = dbHelper.writableDatabase
+            db.beginTransaction()
+            try {
+                db.delete("Book", null, null)
+                val values = ContentValues().apply {
+                    put("name", "yaoyao book")
+                    put("author", "yaoyao")
+                    put("pages", 10002)
+                    put("price", 203)
+                }
+                db.insert("Book", null, values)
+                db.setTransactionSuccessful()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                db.endTransaction()
+            }
         }
     }
 }
