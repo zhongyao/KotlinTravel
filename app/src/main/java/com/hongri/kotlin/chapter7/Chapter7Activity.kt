@@ -100,5 +100,12 @@ class Chapter7Activity : AppCompatActivity() {
             }
             db.insert("Book", null, value2)
         }
+
+        updateSQLBtn.setOnClickListener {
+            val db = dbHelper.writableDatabase
+            val values = ContentValues()
+            values.put("price", 10.99)
+            db.update("Book", values, "name = ?", arrayOf("yao book"))
+        }
     }
 }
