@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hongri.kotlin">
-
-    <!--接收系统的开机广播权限-->
+    <!-- 接收系统的开机广播权限 -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
@@ -12,6 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinTravel">
+        <activity android:name=".chapter7.Chapter7Activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <receiver
             android:name=".chapter6.BootCompleteReceiver"
             android:enabled="true"
@@ -21,14 +28,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".chapter6.BroadcastActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".chapter4.recycler.RecyclerViewActivity"></activity>
+        <activity android:name=".chapter6.BroadcastActivity"/>
+        <activity android:name=".chapter4.recycler.RecyclerViewActivity" />
         <activity android:name=".chapter4.CustomLayoutActivity" />
         <activity android:name=".chapter4.Chapter4Activity" />
         <activity android:name=".chapter3.SecondActivity" />

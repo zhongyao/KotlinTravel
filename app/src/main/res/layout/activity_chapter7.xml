@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    tools:context=".chapter7.Chapter7Activity">
+
+    <Button
+        android:id="@+id/saveFileBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="保存文件"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/restoreFileBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取文件"
+        app:layout_constraintTop_toBottomOf="@id/saveFileBtn" />
+
+    <Button
+        android:id="@+id/saveSpBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="保存SP"
+        app:layout_constraintTop_toBottomOf="@id/restoreFileBtn" />
+
+    <Button
+        android:id="@+id/restoreSpBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取SP"
+        app:layout_constraintTop_toBottomOf="@id/saveSpBtn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
