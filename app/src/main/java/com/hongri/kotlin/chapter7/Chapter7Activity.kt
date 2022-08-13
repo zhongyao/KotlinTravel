@@ -101,6 +101,12 @@ class Chapter7Activity : AppCompatActivity() {
                 put("price", 19.93)
             }
             db.insert("Book", null, value2)
+
+            //SQL插入数据
+//            db.execSQL(
+//                "insert into Book(name, author, pages, price) values(?, ? ,?, ?)",
+//                arrayOf("hongri book", "hongri", 510, 19.93)
+//            )
         }
 
         updateSQLBtn.setOnClickListener {
@@ -108,11 +114,17 @@ class Chapter7Activity : AppCompatActivity() {
             val values = ContentValues()
             values.put("price", 10.99)
             db.update("Book", values, "name = ?", arrayOf("yao book"))
+
+            //SQL更新数据
+            db.execSQL("update Book set price = ? where name = ?", arrayOf("10.99", "yao book"))
         }
 
         deleteSQLBtn.setOnClickListener {
             val db = dbHelper.writableDatabase
             db.delete("Book", "pages > ?", arrayOf("500"))
+
+            //SQL删除数据
+//            db.execSQL("delete from Book where pages > ?", arrayOf("500"))
         }
 
         selectSQLBtn.setOnClickListener {
@@ -133,6 +145,9 @@ class Chapter7Activity : AppCompatActivity() {
                 } while (cursor.moveToNext())
             }
             cursor.close()
+
+            //SQL查询数据
+//            val cursor = db.rawQuery("select * from Book", null)
         }
     }
 }
