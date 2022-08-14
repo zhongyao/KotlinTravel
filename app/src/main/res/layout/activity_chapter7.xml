@@ -91,4 +91,11 @@
         android:text="upgrade数据库【推荐】"
         app:layout_constraintTop_toBottomOf="@id/transactionBtn" />
 
+    <Button
+        android:id="@+id/cvBetterBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ContentValues用法"
+        app:layout_constraintTop_toBottomOf="@id/upgradeBetterBtn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
