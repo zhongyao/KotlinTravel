@@ -3,6 +3,7 @@
     package="com.hongri.kotlin">
     <!-- 接收系统的开机广播权限 -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
     <application
         android:allowBackup="true"
@@ -11,14 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinTravel">
-        <activity android:name=".chapter7.Chapter7Activity">
+        <activity android:name=".chapter8.Chapter8Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".chapter7.Chapter7Activity"/>
         <receiver
             android:name=".chapter6.BootCompleteReceiver"
             android:enabled="true"
@@ -28,7 +29,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".chapter6.BroadcastActivity"/>
+        <activity android:name=".chapter6.BroadcastActivity" />
         <activity android:name=".chapter4.recycler.RecyclerViewActivity" />
         <activity android:name=".chapter4.CustomLayoutActivity" />
         <activity android:name=".chapter4.Chapter4Activity" />
