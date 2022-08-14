@@ -28,20 +28,18 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="5123fb0b-6696-4d65-a96b-a805378a3298">
+    <connection id="57c3cdc0-9e9e-44ca-8d4a-b5f601c5bb79">
       <console name="Connection" type="STANDARD" schema="main" session="Main" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="5123fb0b-6696-4d65-a96b-a805378a3298" object-ref="schemas/main/tables/Book" />
-    </open-files>
+    <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="5123fb0b-6696-4d65-a96b-a805378a3298" />
+    <connection id="57c3cdc0-9e9e-44ca-8d4a-b5f601c5bb79" />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
-    <filter-actions connection-id="5123fb0b-6696-4d65-a96b-a805378a3298" dataset="main.Book" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="57c3cdc0-9e9e-44ca-8d4a-b5f601c5bb79" dataset="main.Book" active-filter-id="EMPTY_FILTER" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -72,7 +70,7 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="5123fb0b-6696-4d65-a96b-a805378a3298" active="true" signed="true">
+      <connection id="57c3cdc0-9e9e-44ca-8d4a-b5f601c5bb79" active="true" signed="true">
         <database>
           <name value="Connection" />
           <description value="" />

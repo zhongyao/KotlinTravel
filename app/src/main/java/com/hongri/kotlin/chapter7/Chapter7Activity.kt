@@ -170,5 +170,11 @@ class Chapter7Activity : AppCompatActivity() {
                 db.endTransaction()
             }
         }
+
+        upgradeBetterBtn.setOnClickListener {
+            //升级到第3版本时这样写
+            val db = MyDatabaseHelper(this, "BookStore.db", 3)
+            db.writableDatabase
+        }
     }
 }
