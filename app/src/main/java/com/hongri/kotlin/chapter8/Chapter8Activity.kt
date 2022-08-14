@@ -9,6 +9,8 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.hongri.kotlin.R
+import com.hongri.kotlin.chapter8.genericity.MineClass
+import com.hongri.kotlin.chapter8.genericity.MyClass
 import kotlinx.android.synthetic.main.activity_chapter8.*
 
 class Chapter8Activity : AppCompatActivity() {
@@ -54,5 +56,23 @@ class Chapter8Activity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    /**
+     * 泛型调用
+     */
+    private fun generic() {
+        //泛型类调用
+        val myClass = MyClass<Int>()
+        val result = myClass.method(323)
+
+        //泛型方法调用
+        val mineClass = MineClass()
+//        val res = mineClass.method<Int>(323)
+        /**
+         * Kotlin拥有非常出色的类型推导机制，例如我们传入了一个Int类型的参数，它能够自动推导出
+         * 泛型的类型就是Int类型，因此这里可以直接省略泛型的指定。
+         */
+        val res = mineClass.method(323)
     }
 }
