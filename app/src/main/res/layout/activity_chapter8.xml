@@ -8,17 +8,17 @@
     tools:context=".chapter8.Chapter8Activity">
 
     <Button
-        android:id="@+id/getContactsBtn"
+        android:id="@+id/ifBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="读取系统联系人"
+        android:text="test if条件赋值"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
     <ListView
         android:id="@+id/lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/getContactsBtn" />
+        app:layout_constraintTop_toBottomOf="@id/ifBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
