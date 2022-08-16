@@ -45,6 +45,14 @@ class Chapter8Activity : AppCompatActivity() {
             Log.d(TAG, "end -- value:$value")
         }
 
+        classByBtn.setOnClickListener {
+            //类委托
+        }
+
+        paramByBtn.setOnClickListener {
+            //委托属性
+        }
+
         initRv()
     }
 
