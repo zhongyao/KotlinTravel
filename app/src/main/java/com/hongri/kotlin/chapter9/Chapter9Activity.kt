@@ -11,6 +11,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.FileProvider
 import com.hongri.kotlin.R
@@ -139,7 +140,35 @@ class Chapter9Activity : AppCompatActivity() {
             intent.type = "image/*"
             startActivityForResult(intent, fromAlbum)
         }
+
+        /**
+         * 使用infix函数构建更可读的语法
+         */
+        infixBtn.setOnClickListener {
+            if ("Hello Kotlin".startsWith("Hello")) {
+                Log.d("infix", "yes-startsWith")
+            }
+
+            if ("Hello Kotlin".beginsWith("Hello")) {
+                Log.d("infix", "yes-beginsWith")
+            }
+
+            if ("Hello Kotlin" beginsWith "Hello") {
+                Log.d("infix", "yes-beginsWith-infix")
+            }
+        }
     }
+
+    /**
+     * 1、infix函数允许我们将函数调用时的小数点、括号等计算机相关的语法去掉，
+     * 从而使用一种更接近英语的语法来编写程序，让代码看起来更具有可读性。
+     *
+     * 2、限制：
+     * <1>infix函数不能定义成顶层函数，它必须是某个类的成员函数，可以使用扩展函数的方式将它定义到某个类中;
+     * <2>infix函数必须接收且只能接收一个参数，至于参数类型是没有限制的。
+     *
+     */
+    private infix fun String.beginsWith(prefix: String) = startsWith(prefix)
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
