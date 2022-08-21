@@ -14,4 +14,11 @@
         android:text="普通通知"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/notificationBtn2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="富文本通知[setStyle]"
+        app:layout_constraintTop_toBottomOf="@id/notificationBtn1" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

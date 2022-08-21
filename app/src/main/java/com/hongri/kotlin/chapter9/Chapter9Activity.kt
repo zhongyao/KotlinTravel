@@ -1,5 +1,6 @@
 package com.hongri.kotlin.chapter9
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -42,9 +43,36 @@ class Chapter9Activity : AppCompatActivity() {
 //                manager.cancel(1)
             }
         }
+
+        notificationBtn2.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+
+                val channel = NotificationChannel(NORMAL_RICH_TEXT_CHANNEL_ID, "富文本渠道", NotificationManager.IMPORTANCE_DEFAULT)
+                manager.createNotificationChannel(channel)
+
+                val intent = Intent(this, NotificationActivity::class.java)
+                val pi = PendingIntent.getActivity(this, 2, intent, 0)
+
+                val notification = NotificationCompat.Builder(this, NORMAL_RICH_TEXT_CHANNEL_ID)
+                    .setContentTitle("title")
+                        //文本
+//                    .setStyle(NotificationCompat.BigTextStyle().bigText("Kotlin中的注释几乎和Java没什么区别。唯一的区别在于Kotlin中的多行注释中可以嵌套多行注释，而Java中是不能的。"))
+                        //图片
+                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setStyle(NotificationCompat.BigPictureStyle().bigPicture(BitmapFactory.decodeResource(resources, R.drawable.bird)))
+                    .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.bird))
+                    .setContentIntent(pi)
+                    //自动消失[1]
+                    .setAutoCancel(true)
+                    .build()
+                manager.notify(2, notification)
+            }
+        }
     }
 
     companion object {
         private const val NORMAL_CHANNEL_ID = "100"
+        private const val NORMAL_RICH_TEXT_CHANNEL_ID = "101"
     }
 }
