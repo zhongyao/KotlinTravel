@@ -19,9 +19,10 @@ import java.io.File
 
 class Chapter9Activity : AppCompatActivity() {
 
-    val takePhoto = 1
+    private val takePhoto = 1
+    private val fromAlbum = 2
     lateinit var imageUri: Uri
-    lateinit var outputImage: File
+    private lateinit var outputImage: File
 
     companion object {
         private const val NORMAL_CHANNEL_ID = "100"
@@ -129,6 +130,15 @@ class Chapter9Activity : AppCompatActivity() {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
             startActivityForResult(intent, takePhoto)
         }
+
+        galleryBtn.setOnClickListener {
+            //打开文件选择器
+            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+            intent.addCategory(Intent.CATEGORY_OPENABLE)
+            //指定只显示图片
+            intent.type = "image/*"
+            startActivityForResult(intent, fromAlbum)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -140,7 +150,19 @@ class Chapter9Activity : AppCompatActivity() {
                     iv.setImageBitmap(rotateIfRequired(bitmap))
                 }
             }
+            fromAlbum -> {
+                if (resultCode == RESULT_OK) {
+                    data?.data?.let { uri ->
+                        val bitmap = getBitmapFromUri(uri)
+                        iv.setImageBitmap(bitmap)
+                    }
+                }
+            }
         }
+    }
+
+    private fun getBitmapFromUri(uri: Uri) = contentResolver.openFileDescriptor(uri, "r")?.use {
+        BitmapFactory.decodeFileDescriptor(it.fileDescriptor)
     }
 
     private fun rotateIfRequired(bitmap: Bitmap): Bitmap {
