@@ -69,10 +69,38 @@ class Chapter9Activity : AppCompatActivity() {
                 manager.notify(2, notification)
             }
         }
+
+        /**
+         * 开发者只能在创建渠道通知的时候为它指定初始的重要等级，如果用户不认可这个重要等级的话，可以随时进行修改，
+         * 开发者对此无权进行调整和变更，因为通知渠道一旦创建就不能再通过代码修改了。
+         */
+        notificationBtn3.setOnClickListener {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+
+                val channel = NotificationChannel(IMPORTANT_CHANNEL_ID, "重要渠道", NotificationManager.IMPORTANCE_HIGH)
+                manager.createNotificationChannel(channel)
+
+                val intent = Intent(this, NotificationActivity::class.java)
+                val pi = PendingIntent.getActivity(this, 0, intent, 0)
+
+                val notification = NotificationCompat.Builder(this, IMPORTANT_CHANNEL_ID)
+                    .setContentTitle("important notification")
+                    .setContentText("contentText")
+                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.bird))
+                    .setContentIntent(pi)
+                    //自动消失[1]
+                    .setAutoCancel(true)
+                    .build()
+                manager.notify(3, notification)
+            }
+        }
     }
 
     companion object {
         private const val NORMAL_CHANNEL_ID = "100"
         private const val NORMAL_RICH_TEXT_CHANNEL_ID = "101"
+        private const val IMPORTANT_CHANNEL_ID = "102"
     }
 }
