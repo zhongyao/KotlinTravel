@@ -1,19 +1,34 @@
 package com.hongri.kotlin.chapter9
 
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
+import android.media.ExifInterface
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.core.app.NotificationCompat
+import androidx.core.content.FileProvider
 import com.hongri.kotlin.R
 import kotlinx.android.synthetic.main.activity_chapter9.*
+import java.io.File
 
 class Chapter9Activity : AppCompatActivity() {
+
+    val takePhoto = 1
+    lateinit var imageUri: Uri
+    lateinit var outputImage: File
+
+    companion object {
+        private const val NORMAL_CHANNEL_ID = "100"
+        private const val NORMAL_RICH_TEXT_CHANNEL_ID = "101"
+        private const val IMPORTANT_CHANNEL_ID = "102"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chapter9)
@@ -96,11 +111,55 @@ class Chapter9Activity : AppCompatActivity() {
                 manager.notify(3, notification)
             }
         }
+
+        cameraBtn.setOnClickListener {
+            //应用关联缓存目录【不用申请权限】/sdcard/Android/data/<package name>/cache
+            outputImage = File(externalCacheDir, "output_image.jpg")
+            if (outputImage.exists()) {
+                outputImage.delete()
+            }
+            outputImage.createNewFile()
+            imageUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                //从Android7.0系统开始，直接使用本地真实路径的Uri被认为是不安全的，会抛出一个FileUriExposedException异常
+                FileProvider.getUriForFile(this, "com.example.cameraalbumtest.fileprovider", outputImage)
+            } else {
+                Uri.fromFile(outputImage)
+            }
+            val intent = Intent("android.media.action.IMAGE_CAPTURE")
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
+            startActivityForResult(intent, takePhoto)
+        }
     }
 
-    companion object {
-        private const val NORMAL_CHANNEL_ID = "100"
-        private const val NORMAL_RICH_TEXT_CHANNEL_ID = "101"
-        private const val IMPORTANT_CHANNEL_ID = "102"
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode) {
+            takePhoto -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    val bitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(imageUri))
+                    iv.setImageBitmap(rotateIfRequired(bitmap))
+                }
+            }
+        }
     }
+
+    private fun rotateIfRequired(bitmap: Bitmap): Bitmap {
+        val exif = ExifInterface(outputImage.path)
+        val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+        return when(orientation) {
+            ExifInterface.ORIENTATION_ROTATE_90 -> rotateBitmap(bitmap, 90)
+            ExifInterface.ORIENTATION_ROTATE_180 -> rotateBitmap(bitmap, 180)
+            ExifInterface.ORIENTATION_ROTATE_270 -> rotateBitmap(bitmap, 270)
+            else -> bitmap
+        }
+    }
+
+    private fun rotateBitmap(bitmap: Bitmap, degree: Int): Bitmap {
+        val matrix = Matrix()
+        matrix.postRotate(degree.toFloat())
+        val rotatedBitmap = Bitmap.createBitmap(bitmap, 0, 0,bitmap.width, bitmap.height, matrix, true)
+        bitmap.recycle()
+        return rotatedBitmap
+    }
+
 }
