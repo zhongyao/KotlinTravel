@@ -12,26 +12,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinTravel">
-        <activity android:name=".chapter9.NotificationActivity"/>
-
-        <provider
-            android:authorities="com.example.cameraalbumtest.fileprovider"
-            android:name="androidx.core.content.FileProvider"
-            android:exported="false"
-            android:enabled="true"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
-
-        </provider>
-        <activity android:name=".chapter9.Chapter9Activity">
+        <activity android:name=".chapter10.Chapter10Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".chapter9.NotificationActivity" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.cameraalbumtest.fileprovider"
+            android:enabled="true"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity android:name=".chapter9.Chapter9Activity"/>
         <activity android:name=".chapter8.Chapter8Activity" />
         <activity android:name=".chapter7.Chapter7Activity" />
 
