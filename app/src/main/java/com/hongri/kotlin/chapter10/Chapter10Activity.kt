@@ -33,6 +33,7 @@ class Chapter10Activity : AppCompatActivity() {
     }
 
     lateinit var downloadBinder: MyService.DownloadBinder
+    //此处object为实现一个接口/类
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
             Log.d(TAG, "onServiceConnected")
