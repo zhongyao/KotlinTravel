@@ -1,5 +1,6 @@
 package com.hongri.kotlin.chapter10
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -39,6 +40,16 @@ class Chapter10Activity : AppCompatActivity() {
                 msg.what = updateText
                 handler.sendMessage(msg)
             }
+        }
+
+        startServiceBtn.setOnClickListener {
+            val intent = Intent(this, MyService::class.java)
+            startService(intent)
+        }
+
+        stopServiceBtn.setOnClickListener {
+            val intent = Intent(this, MyService::class.java)
+            stopService(intent)
         }
     }
 }

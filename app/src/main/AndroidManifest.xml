@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hongri.kotlin">
+
     <!-- 接收系统的开机广播权限 -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -12,6 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinTravel">
+        <service
+            android:name=".chapter10.MyService"
+            android:enabled="true"
+            android:exported="true" />
+
         <activity android:name=".chapter10.Chapter10Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +38,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".chapter9.Chapter9Activity"/>
+        <activity android:name=".chapter9.Chapter9Activity" />
         <activity android:name=".chapter8.Chapter8Activity" />
         <activity android:name=".chapter7.Chapter7Activity" />
 

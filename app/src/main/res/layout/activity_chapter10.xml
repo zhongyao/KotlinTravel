@@ -22,4 +22,32 @@
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/threadBtn" />
 
+    <Button
+        android:id="@+id/startServiceBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="start Service"
+        app:layout_constraintTop_toBottomOf="@id/tvContent" />
+
+    <Button
+        android:id="@+id/stopServiceBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="stop Service"
+        app:layout_constraintTop_toBottomOf="@id/startServiceBtn" />
+
+    <Button
+        android:id="@+id/bindServiceBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="bind Service"
+        app:layout_constraintTop_toBottomOf="@id/stopServiceBtn" />
+
+    <Button
+        android:id="@+id/unBindServiceBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="unBind Service"
+        app:layout_constraintTop_toBottomOf="@id/bindServiceBtn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
