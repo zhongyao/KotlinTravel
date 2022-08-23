@@ -16,7 +16,13 @@ import kotlin.concurrent.thread
 class Chapter10Activity : AppCompatActivity() {
 
     private val updateText = 1;
-    private val tag = "Chapter10Activity";
+
+    /**
+     * 定义常量TAG
+     */
+    companion object {
+        private const val TAG = "Chapter10Activity";
+    }
     private val handler = object : Handler() {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
@@ -29,14 +35,14 @@ class Chapter10Activity : AppCompatActivity() {
     lateinit var downloadBinder: MyService.DownloadBinder
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            Log.d(tag, "onServiceConnected")
+            Log.d(TAG, "onServiceConnected")
             downloadBinder = service as MyService.DownloadBinder
             downloadBinder.startDownload()
             downloadBinder.getProgress()
         }
 
         override fun onServiceDisconnected(name: ComponentName?) {
-            Log.d(tag, "onServiceDisconnected")
+            Log.d(TAG, "onServiceDisconnected")
         }
     }
 
