@@ -64,4 +64,19 @@
         android:text="IntentService"
         app:layout_constraintTop_toBottomOf="@id/foregroundServiceBtn" />
 
+    <Button
+        android:id="@+id/reifiedBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="泛型实化"
+        app:layout_constraintTop_toBottomOf="@id/intentServiceBtn" />
+
+    <Button
+        android:id="@+id/covariationBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="泛型协变"
+        app:layout_constraintTop_toBottomOf="@id/reifiedBtn" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

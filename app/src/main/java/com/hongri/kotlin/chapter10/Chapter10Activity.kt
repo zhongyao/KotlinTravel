@@ -9,7 +9,12 @@ import android.os.Handler
 import android.os.IBinder
 import android.os.Message
 import android.util.Log
+import com.hongri.kotlin.MainActivity
 import com.hongri.kotlin.R
+import com.hongri.kotlin.chapter10.covariation.Person
+import com.hongri.kotlin.chapter10.covariation.SimpleData
+import com.hongri.kotlin.chapter10.covariation.Student
+import com.hongri.kotlin.chapter10.genericity.startActivity
 import com.hongri.kotlin.util.getThreadName
 import kotlinx.android.synthetic.main.activity_chapter10.*
 import kotlin.concurrent.thread
@@ -97,5 +102,30 @@ class Chapter10Activity : AppCompatActivity() {
             val intent = Intent(this, MyIntentService::class.java)
             startService(intent)
         }
+
+        reifiedBtn.setOnClickListener {
+            startActivity<MainActivity>(this) {
+                putExtra("name", "yao")
+                putExtra("age", 18)
+            }
+        }
+
+        covariationBtn.setOnClickListener {
+            val student = Student("yao", 18)
+
+            /**
+             * 这里SimpleData类已经进行了协变声明，
+             * 那么SimpleData<Student> 自然就是SimpleData<Person>的子类了
+             * 所以这里可以安全地向handleMyData()方法中传递参数。
+             */
+            val data = SimpleData<Student>(student)
+            handleMyData(data)
+            val studentData = data.get()
+        }
+
+    }
+
+    private fun handleMyData(data: SimpleData<Person>) {
+        val personData = data.get()
     }
 }
