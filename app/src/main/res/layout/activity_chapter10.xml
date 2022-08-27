@@ -57,4 +57,11 @@
         android:text="Foreground Service"
         app:layout_constraintTop_toBottomOf="@id/unBindServiceBtn" />
 
+    <Button
+        android:id="@+id/intentServiceBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="IntentService"
+        app:layout_constraintTop_toBottomOf="@id/foregroundServiceBtn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

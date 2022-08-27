@@ -10,6 +10,7 @@ import android.os.IBinder
 import android.os.Message
 import android.util.Log
 import com.hongri.kotlin.R
+import com.hongri.kotlin.util.getThreadName
 import kotlinx.android.synthetic.main.activity_chapter10.*
 import kotlin.concurrent.thread
 
@@ -88,6 +89,12 @@ class Chapter10Activity : AppCompatActivity() {
 
         foregroundServiceBtn.setOnClickListener {
             val intent = Intent(this, MyForegroundService::class.java)
+            startService(intent)
+        }
+
+        intentServiceBtn.setOnClickListener {
+            Log.d("MyIntentService", "-" + getThreadName())
+            val intent = Intent(this, MyIntentService::class.java)
             startService(intent)
         }
     }

@@ -9,3 +9,10 @@ package com.hongri.kotlin.util
 fun doSomething() {
     println("do something!!")
 }
+
+/**
+ * 获取线程名字
+ */
+fun getThreadName(): String {
+    return "Thread id is ${Thread.currentThread().name}"
+}
