@@ -20,5 +20,12 @@ class SimpleData<out T>(private val data: T?) {
  * 3、不带：只是传递值，不可在该类中使用
  */
 open class Person(val name: String, val age: Int)
-class Student(name: String, age: Int): Person(name, age)
-class Teacher(name: String, age: Int): Person(name, age)
+class Student(name: String, age: Int) : Person(name, age)
+class Teacher(name: String, age: Int) : Person(name, age)
+
+//这里我们在泛型T的声明前面加上了一个关键字in，这就意味着现在T只能出现在in位置上，
+// 而不能出现在out位置上，同时也意味着Transformer在泛型T上是可逆的。
+
+interface Transformer<in T> {
+    fun transform(t: T): String
+}

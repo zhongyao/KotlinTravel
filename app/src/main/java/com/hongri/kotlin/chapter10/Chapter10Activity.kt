@@ -14,6 +14,7 @@ import com.hongri.kotlin.R
 import com.hongri.kotlin.chapter10.covariation.Person
 import com.hongri.kotlin.chapter10.covariation.SimpleData
 import com.hongri.kotlin.chapter10.covariation.Student
+import com.hongri.kotlin.chapter10.covariation.Transformer
 import com.hongri.kotlin.chapter10.genericity.startActivity
 import com.hongri.kotlin.util.getThreadName
 import kotlinx.android.synthetic.main.activity_chapter10.*
@@ -29,6 +30,7 @@ class Chapter10Activity : AppCompatActivity() {
     companion object {
         private const val TAG = "Chapter10Activity";
     }
+
     private val handler = object : Handler() {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
@@ -39,6 +41,7 @@ class Chapter10Activity : AppCompatActivity() {
     }
 
     lateinit var downloadBinder: MyService.DownloadBinder
+
     //此处object为实现一个接口/类
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
@@ -123,6 +126,23 @@ class Chapter10Activity : AppCompatActivity() {
             val studentData = data.get()
         }
 
+        inversionBtn.setOnClickListener {
+            //这里我们在泛型T的声明前面加上了一个关键字in，这就意味着现在T只能出现在in位置上，
+            // 而不能出现在out位置上，同时也意味着Transformer在泛型T上是可逆的。
+            val trans = object : Transformer<Person> {
+                override fun transform(t: Person): String {
+                    return "${t.name} ${t.age}"
+                }
+            }
+            //可以正常编译，因为此时Transformer<Person> 已经成为了Transformer<Student>的子类型
+            handleTransformer(trans)
+        }
+
+    }
+
+    private fun handleTransformer(trans: Transformer<Student>) {
+        val student = Student("Tom", 19)
+        val result = trans.transform(student)
     }
 
     private fun handleMyData(data: SimpleData<Person>) {
