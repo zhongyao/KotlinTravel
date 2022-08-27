@@ -6,6 +6,9 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+    <!--Android9.0系统生命前台Service，必须声明该权限-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,6 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinTravel">
+        <service
+            android:name=".chapter10.MyForegroundService"
+            android:enabled="true"
+            android:exported="true"></service>
         <service
             android:name=".chapter10.MyService"
             android:enabled="true"

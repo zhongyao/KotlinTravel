@@ -86,5 +86,9 @@ class Chapter10Activity : AppCompatActivity() {
             unbindService(connection)
         }
 
+        foregroundServiceBtn.setOnClickListener {
+            val intent = Intent(this, MyForegroundService::class.java)
+            startService(intent)
+        }
     }
 }
