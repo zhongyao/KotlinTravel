@@ -13,11 +13,18 @@
         android:text="网络请求"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/retrofitBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="retrofit"
+        app:layout_constraintTop_toBottomOf="@id/requestBtn" />
+
     <TextView
         android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""
-        app:layout_constraintTop_toBottomOf="@+id/requestBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/retrofitBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

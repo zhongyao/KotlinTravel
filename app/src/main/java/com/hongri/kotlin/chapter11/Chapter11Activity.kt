@@ -2,10 +2,17 @@ package com.hongri.kotlin.chapter11
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.hongri.kotlin.R
+import com.hongri.kotlin.chapter11.retrofit.App
+import com.hongri.kotlin.chapter11.retrofit.AppService
+import com.hongri.kotlin.chapter11.retrofit.ServiceCreator
 import kotlinx.android.synthetic.main.activity_chapter11.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.lang.StringBuilder
@@ -14,6 +21,11 @@ import java.net.URL
 import kotlin.concurrent.thread
 
 class Chapter11Activity : AppCompatActivity() {
+
+    companion object {
+        private const val TAG = "Chapter11Activity"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chapter11)
@@ -21,6 +33,22 @@ class Chapter11Activity : AppCompatActivity() {
         requestBtn.setOnClickListener {
 //            sendRequest()
             sendRequestWithOkHttp()
+        }
+
+        retrofitBtn.setOnClickListener {
+//            val appService = ServiceCreator.create(AppService::class.java)
+            val appService = ServiceCreator.create<AppService>()
+            appService.getData(2).enqueue(object : Callback<App> {
+                override fun onResponse(call: Call<App>, response: Response<App>) {
+                    val result = response.body()
+                    Log.d(TAG, "result:$result")
+                }
+
+                override fun onFailure(call: Call<App>, t: Throwable) {
+                    Log.d(TAG, "onFailure")
+                }
+
+            })
         }
     }
 
