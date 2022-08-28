@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.hongri.kotlin.R
 import kotlinx.android.synthetic.main.activity_chapter11.*
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.lang.StringBuilder
@@ -17,7 +19,26 @@ class Chapter11Activity : AppCompatActivity() {
         setContentView(R.layout.activity_chapter11)
 
         requestBtn.setOnClickListener {
-            sendRequest()
+//            sendRequest()
+            sendRequestWithOkHttp()
+        }
+    }
+
+    private fun sendRequestWithOkHttp() {
+        thread {
+            try {
+                val client = OkHttpClient()
+                val request = Request.Builder()
+                    .url("https://www.baidu.com")
+                    .build()
+                val response = client.newCall(request).execute()
+                val responseData = response.body?.string()
+                if (responseData != null) {
+                    showResponse(responseData)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
