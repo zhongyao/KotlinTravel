@@ -16,9 +16,13 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.BufferedReader
 import java.io.InputStreamReader
+import java.lang.RuntimeException
 import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.concurrent.thread
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class Chapter11Activity : AppCompatActivity() {
 
@@ -149,6 +153,53 @@ class Chapter11Activity : AppCompatActivity() {
                 val end = System.currentTimeMillis()
                 Log.d(TAG, "cost ${end - start}milliseconds")
             }
+
+            /**
+             * 使用协程简化回调的写法
+             */
+            val appService = ServiceCreator.create<AppService>()
+            appService.getAppData().enqueue(object : Callback<App> {
+                override fun onResponse(call: Call<App>, response: Response<App>) {
+                    //得到服务器数据
+                }
+
+                override fun onFailure(call: Call<App>, t: Throwable) {
+                    //异常处理
+                }
+            })
+
+            //上面可优化为：
+            suspend fun getAppData() {
+                try {
+                    val app = ServiceCreator.create<AppService>().getAppData().await()
+                    //对服务器相应的数据做处理
+                } catch (e: Exception) {
+                    //对异常情况做处理
+                }
+            }
+        }
+    }
+
+    /**
+     * 通用方法【可提到通用工具类中】：
+     * 不管以后我们要发起多少次网络请求，都不用再重复进行回调实现了【只写一次即可】
+     */
+    private suspend fun <T> Call<T>.await(): T {
+        return suspendCoroutine { continuation ->
+            enqueue(object : Callback<T> {
+                override fun onResponse(call: Call<T>, response: Response<T>) {
+                    val body = response.body()
+                    if (body != null) {
+                        continuation.resume(body)
+                    } else {
+                        continuation.resumeWithException(RuntimeException("response body is null"))
+                    }
+                }
+
+                override fun onFailure(call: Call<T>, t: Throwable) {
+                    continuation.resumeWithException(t)
+                }
+            })
         }
     }
 
