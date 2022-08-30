@@ -1,8 +1,8 @@
 package com.hongri.kotlin.chapter11
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.hongri.kotlin.R
 import com.hongri.kotlin.chapter11.retrofit.App
 import com.hongri.kotlin.chapter11.retrofit.AppService
@@ -16,7 +16,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.BufferedReader
 import java.io.InputStreamReader
-import java.lang.StringBuilder
 import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.concurrent.thread
@@ -99,14 +98,57 @@ class Chapter11Activity : AppCompatActivity() {
             /**
              * 调用挂起函数
              */
-            val start = System.currentTimeMillis()
+//            val start = System.currentTimeMillis()
+//            runBlocking {
+//                repeat(100000) {
+//                    printDot()
+//                }
+//            }
+//            val end = System.currentTimeMillis()
+//            Log.d(TAG, ((end - start).toString()))
+
+            /**
+             * 创建一个协程并获取它的执行结果
+             */
+//            runBlocking {
+//                val result = async {
+//                    5 + 5
+//                }.await()
+//                Log.d(TAG, "result:$result")
+//            }
+            //或
+            /**
+             * 线程参数
+             * Dispatchers.Default：CPU密集型【低并发】
+             * Dispatchers.IO：IO密集型 【高并发】
+             * Dispatchers.Main：不会开启子线程 【主线程中执行代码】
+             */
             runBlocking {
-                repeat(100000) {
-                    printDot()
-                }
+                val result =
+                    withContext(Dispatchers.Default) {
+                        5 + 5
+                    }
+                Log.d(TAG, "result:$result")
             }
-            val end = System.currentTimeMillis()
-            Log.d(TAG, ((end - start).toString()))
+
+            /**
+             * 两个async函数完全可以同时执行从而提高运行效率
+             */
+            runBlocking {
+                val start = System.currentTimeMillis()
+                val deferred1 = async {
+                    delay(1000)
+                    5 + 5
+                }
+
+                val deferred2 = async {
+                    delay(1000)
+                    4 + 6
+                }
+                Log.d(TAG, "result is ${deferred1.await() + deferred2.await()}")
+                val end = System.currentTimeMillis()
+                Log.d(TAG, "cost ${end - start}milliseconds")
+            }
         }
     }
 
