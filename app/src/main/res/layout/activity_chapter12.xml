@@ -13,4 +13,11 @@
         android:text="获取最大数【工具类方法】"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/toastBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="简化Toast使用【工具类方法】"
+        app:layout_constraintTop_toBottomOf="@id/maxNumBtn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

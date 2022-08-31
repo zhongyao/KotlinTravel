@@ -1,6 +1,9 @@
 package com.hongri.kotlin.util
 
+import android.content.Context
+import android.widget.Toast
 import java.lang.RuntimeException
+import java.time.Duration
 
 /**
  * @author：hongri
@@ -36,4 +39,15 @@ fun <T : Comparable<T>> max(vararg nums: T): T {
         }
     }
     return maxNum
+}
+
+/**
+ * 简化Toast的用法
+ */
+fun String.showToast(context: Context, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(context, this, duration).show()
+}
+
+fun Int.showToast(context: Context, duration: Int = Toast.LENGTH_SHORT) {
+    Toast.makeText(context, this, duration).show()
 }
