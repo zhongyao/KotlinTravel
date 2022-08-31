@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/rootView"
     tools:context=".chapter12.Chapter12Activity">
 
     <Button
@@ -19,5 +20,12 @@
         android:layout_height="wrap_content"
         android:text="简化Toast使用【工具类方法】"
         app:layout_constraintTop_toBottomOf="@id/maxNumBtn" />
+
+    <Button
+        android:id="@+id/snackBarBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="简化SnackBar使用【工具类方法】"
+        app:layout_constraintTop_toBottomOf="@id/toastBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
