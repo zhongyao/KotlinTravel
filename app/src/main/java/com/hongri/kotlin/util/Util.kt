@@ -45,4 +45,12 @@ object Util {
         Log.d(TAG, "mutableList:$mutableList list:$list")
 
     }
+
+    /**
+     * kotlin的空安全
+     */
+    fun kotlinInvokeJava() {
+        val list = JavaUtil.getList()
+        list?.get(0);
+    }
 }
