@@ -1,6 +1,7 @@
 package com.hongri.kotlin
 
 import com.hongri.kotlin.chapter2.CellPhone
+import com.hongri.kotlin.chapter2.CellPhone2
 import com.hongri.kotlin.chapter2.Person
 import com.hongri.kotlin.chapter2.Singleton
 import com.hongri.kotlin.chapter2.Student
@@ -27,10 +28,16 @@ fun main() {
     student.doHomework()
 
     val cellPhone1 = CellPhone("HuaWei", 3590.0)
-    val cellPhone2 = CellPhone("HuaWei", 3590.0)
+    val cellPhone2 = CellPhone2("HuaWei")
+    //copy函数
+    val cellPhone3 = cellPhone2.copy(price = 2000.0)
+    //解析式声明
+    val (brand, price) = CellPhone("Huawei", 8000.0)
+
     println(cellPhone1)
     println(cellPhone2)
-    println("cellPhone1 equals cellPhone2 " + (cellPhone1 == cellPhone2))
+    println(cellPhone3)
+    println("brand:$brand price:$price")
 
     //单例调用
     Singleton.singletonTest()
