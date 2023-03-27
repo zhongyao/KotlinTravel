@@ -112,7 +112,7 @@ class Chapter11Activity : AppCompatActivity() {
 //            Log.d(TAG, ((end - start).toString()))
 
             /**
-             * 创建一个协程并获取它的执行结果
+             * 【async函数】创建一个协程并获取它的执行结果
              */
 //            runBlocking {
 //                val result = async {
