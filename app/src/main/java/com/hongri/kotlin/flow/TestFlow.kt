@@ -26,7 +26,7 @@ import kotlin.system.measureTimeMillis
 /**
  * @author：zhongyao
  * @date：2023/3/27
- * @description：数据流Flow -- 是冷流（惰性的）-- 即在调用末端流操作符(collect 是其中之一)之前， flow{ ... } 中的代码不会执行。
+ * @description：数据流Flow -- 是【冷流】（惰性的）-- 即在调用末端流操作符(collect 是其中之一)之前， flow{ ... } 中的代码不会执行。
  * @reference：https://www.cnblogs.com/joy99/p/15805955.html
  */
 object TestFlow {

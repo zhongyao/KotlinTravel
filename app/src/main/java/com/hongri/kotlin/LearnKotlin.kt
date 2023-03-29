@@ -1,10 +1,12 @@
 package com.hongri.kotlin
 
+import com.hongri.kotlin.channel.TestChannel
 import com.hongri.kotlin.chapter2.CellPhone
 import com.hongri.kotlin.chapter2.CellPhone2
 import com.hongri.kotlin.chapter2.Singleton
 import com.hongri.kotlin.chapter2.Student
 import com.hongri.kotlin.flow.TestFlow
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeoutOrNull
 import kotlin.math.max
@@ -45,21 +47,35 @@ fun main() {
     Singleton.singletonTest()
 
     runBlocking {
-        //通道Channel调用
+        testChannel(this)
+//        testFlow()
+    }
+
+}
+
+/**
+ * 通道Channel调用
+ */
+suspend fun testChannel(coroutineScope: CoroutineScope) {
 //        TestChannel.test1()
 //        TestChannel.testChannelIterator()
+    TestChannel.channelInteract(coroutineScope)
+}
 
-        //数据流Flow调用
-        TestFlow.createFlow().collect {
+/**
+ * 数据流Flow调用
+ */
+suspend fun testFlow() {
+    TestFlow.createFlow().collect {
+        println(it)
+    }
+
+    //超时取消
+    withTimeoutOrNull(250) {
+        TestFlow.flowCancel().collect {
             println(it)
         }
-
-        //超时取消
-        withTimeoutOrNull(250) {
-            TestFlow.flowCancel().collect {
-                println(it)
-            }
-        }
+    }
 
 //        val sum = TestFlow.reduce()
 //        println(sum)
@@ -76,10 +92,7 @@ fun main() {
 
 //        TestFlow.buffer()
 
-        TestFlow.conflate()
-
-    }
-
+    TestFlow.conflate()
 }
 
 fun largerNum(num1: Int, num2: Int): Int {
