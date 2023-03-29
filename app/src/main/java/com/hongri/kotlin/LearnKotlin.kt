@@ -61,10 +61,22 @@ fun main() {
             }
         }
 
-        val sum = TestFlow.reduce()
-        println(sum)
-        val sumFold = TestFlow.fold()
-        println(sumFold)
+//        val sum = TestFlow.reduce()
+//        println(sum)
+//        val sumFold = TestFlow.fold()
+//        println(sumFold)
+
+//        TestFlow.launchIn(this)
+
+//        TestFlow.flowContinuous()
+//
+//        TestFlow.flowOnStart()
+
+//        TestFlow.flowOnCompletion()
+
+//        TestFlow.buffer()
+
+        TestFlow.conflate()
 
     }
 
