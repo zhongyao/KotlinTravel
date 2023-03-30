@@ -2,11 +2,13 @@ package com.hongri.kotlin.flow
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.buffer
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.filter
@@ -20,7 +22,10 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.reduce
+import kotlinx.coroutines.flow.retry
 import okhttp3.Dispatcher
+import java.lang.Exception
+import java.util.concurrent.Executors
 import kotlin.system.measureTimeMillis
 
 /**
@@ -186,6 +191,66 @@ object TestFlow {
                 }
         }
         println("conflate -- costTime: $costTime")
+    }
+
+    suspend fun catch() {
+        (1..5).asFlow().onEach {
+            if (it == 4) {
+                throw Exception("test exception")
+            }
+            delay(100)
+            println("produce data: $it")
+            //catch 操作捕获到异常之后，不会再影响下游：
+        }.catch { ex ->
+            println("catch exception: ${ex.message}")
+        }.onCompletion {
+            //onCompletion 即使遇到异常也会执行
+            println("onCompletion")
+        }.collect {
+            println("collect: $it")
+        }
+    }
+
+    suspend fun retry() {
+        (1..5).asFlow().onEach {
+            if (it == 4) {
+                throw Exception("test exception")
+            }
+            delay(100)
+            println("produce data: $it")
+        }.retry(2) {
+            it.message == "test exception"
+        }.catch { ex ->
+            println("catch exception: ${ex.message}")
+        }.collect {
+            println("collect: $it")
+        }
+    }
+
+
+    /**
+     * Flows 通过 flowOn 方法来切换线程，多次调用，都会影响到它上游的代码:
+     *
+     * 发射数据是在 Dispatchers.IO 线程执行的，
+     * map 操作时在我们自定义的线程池中进行的，
+     * collect 操作在 Dispatchers.Main 线程进行。
+     */
+    private val mDispatcher = Executors.newSingleThreadExecutor().asCoroutineDispatcher()
+    suspend fun flowOn() {
+        (1..5).asFlow().onEach {
+            printWithThreadInfo("produce data: $it")
+        }.flowOn(Dispatchers.IO).map {
+            printWithThreadInfo("$it to String")
+            "String: $it"
+        }.flowOn(mDispatcher).onCompletion {
+            mDispatcher.close()
+        }.collect {
+            printWithThreadInfo("collect: $it")
+        }
+    }
+
+    private fun printWithThreadInfo(s: String) {
+        println("thread id -- ${Thread.currentThread().id}  thread name: ${Thread.currentThread().name}")
     }
 
 }

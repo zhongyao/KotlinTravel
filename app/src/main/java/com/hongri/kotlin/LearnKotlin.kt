@@ -47,8 +47,8 @@ fun main() {
     Singleton.singletonTest()
 
     runBlocking {
-        testChannel(this)
-//        testFlow()
+//        testChannel(this)
+        testFlow()
     }
 
 }
@@ -92,7 +92,13 @@ suspend fun testFlow() {
 
 //        TestFlow.buffer()
 
-    TestFlow.conflate()
+//    TestFlow.conflate()
+
+//    TestFlow.catch()
+
+//    TestFlow.retry()
+
+    TestFlow.flowOn()
 }
 
 fun largerNum(num1: Int, num2: Int): Int {
