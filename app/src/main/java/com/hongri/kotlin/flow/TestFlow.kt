@@ -193,6 +193,9 @@ object TestFlow {
         println("conflate -- costTime: $costTime")
     }
 
+    /**
+     * catch 操作符捕获上游异常
+     */
     suspend fun catch() {
         (1..5).asFlow().onEach {
             if (it == 4) {
@@ -211,6 +214,9 @@ object TestFlow {
         }
     }
 
+    /**
+     * retry、retryWhen 操作符重试
+     */
     suspend fun retry() {
         (1..5).asFlow().onEach {
             if (it == 4) {
