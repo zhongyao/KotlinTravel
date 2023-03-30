@@ -66,16 +66,16 @@ suspend fun testChannel(coroutineScope: CoroutineScope) {
  * 数据流Flow调用
  */
 suspend fun testFlow() {
-    TestFlow.createFlow().collect {
-        println(it)
-    }
-
-    //超时取消
-    withTimeoutOrNull(250) {
-        TestFlow.flowCancel().collect {
-            println(it)
-        }
-    }
+//    TestFlow.createFlow().collect {
+//        println(it)
+//    }
+//
+//    //超时取消
+//    withTimeoutOrNull(250) {
+//        TestFlow.flowCancel().collect {
+//            println(it)
+//        }
+//    }
 
 //        val sum = TestFlow.reduce()
 //        println(sum)
@@ -98,7 +98,14 @@ suspend fun testFlow() {
 
 //    TestFlow.retry()
 
-    TestFlow.flowOn()
+//    TestFlow.flowOn()
+
+//    TestFlow.map()
+
+//    TestFlow.transform()
+//    TestFlow.filter()
+//    TestFlow.zip()
+    TestFlow.combine()
 }
 
 fun largerNum(num1: Int, num2: Int): Int {

@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.buffer
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flow
@@ -23,6 +24,9 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.reduce
 import kotlinx.coroutines.flow.retry
+import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.flow.transform
+import kotlinx.coroutines.flow.zip
 import okhttp3.Dispatcher
 import java.lang.Exception
 import java.util.concurrent.Executors
@@ -259,4 +263,73 @@ object TestFlow {
         println("thread id -- ${Thread.currentThread().id}  thread name: ${Thread.currentThread().name}")
     }
 
+    suspend fun map() {
+        (1..5).asFlow().map {
+            "string $it"
+        }.collect {
+            println(it)
+        }
+    }
+
+    /**
+     * 在使用 transform 操作符时，可以任意多次调用 emit ，
+     * 这是 transform 跟 map 最大的区别:
+     */
+    suspend fun transform() {
+        (1..5).asFlow().transform {
+            emit(it * 2)
+            delay(100)
+            emit(it * 33)
+        }.collect {
+            println(it)
+        }
+    }
+
+    /**
+     * 按条件过滤
+     */
+    suspend fun filter() {
+        (1..5).asFlow().filter {
+            it % 2 == 0
+        }.collect {
+            println(it)
+        }
+    }
+
+    /**
+     * take 操作符只取前几个 emit 发射的值
+     */
+    suspend fun take() {
+        (1..5).asFlow().take(2).collect {
+            println(it)
+        }
+    }
+
+    /**
+     * zip 是可以将2个 flow 进行合并的操作符
+     */
+    suspend fun zip() {
+        val flowA = (1..5).asFlow()
+        val flowB = flowOf("one", "two", "three", "four", "five").onEach { delay(200) }
+        flowA.zip(flowB) { a, b ->
+            "$a + $b"
+        }.collect {
+            println(it)
+        }
+    }
+
+    /**
+     * combine:
+     * 使用 combine 合并时，每次从 flowA 发出新的 item ，会将其与 flowB 的最新的 item 合并。
+     */
+    suspend fun combine() {
+        val flowA = (1..5).asFlow().onEach { delay(1000) }
+        val flowB =
+            flowOf("one", "two", "three", "four", "five", "six", "seven").onEach { delay(1000) }
+        flowA.combine(flowB) { a, b ->
+            "$a + $b"
+        }.collect {
+            println(it)
+        }
+    }
 }
