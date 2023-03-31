@@ -2,6 +2,7 @@ package com.hongri.kotlin.flow
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
@@ -13,6 +14,11 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flatMapMerge
+import kotlinx.coroutines.flow.flattenConcat
+import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
@@ -27,6 +33,7 @@ import kotlinx.coroutines.flow.retry
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.flow.zip
+import kotlinx.coroutines.launch
 import okhttp3.Dispatcher
 import java.lang.Exception
 import java.util.concurrent.Executors
@@ -260,9 +267,12 @@ object TestFlow {
     }
 
     private fun printWithThreadInfo(s: String) {
-        println("thread id -- ${Thread.currentThread().id}  thread name: ${Thread.currentThread().name}")
+        println("thread id -- ${Thread.currentThread().id}  thread name: ${Thread.currentThread().name} s: $s")
     }
 
+    /**
+     * map 操作符用于 Flow 表示将流中的每个元素进行转换后再发射出来。
+     */
     suspend fun map() {
         (1..5).asFlow().map {
             "string $it"
@@ -332,4 +342,129 @@ object TestFlow {
             println(it)
         }
     }
+
+    /**
+     * flattenConcat:
+     * 将给定流按顺序展平为单个流，而不交错嵌套流。
+     */
+    @OptIn(FlowPreview::class)
+    suspend fun flattenContact() {
+        val flowA = (1..5).asFlow()
+        val flowB = flowOf("one", "two", "three", "four", "five").onEach { delay(1000) }
+        flowOf(flowA, flowB)
+            .flattenConcat()
+            .collect {
+                println(it)
+            }
+    }
+
+    @OptIn(FlowPreview::class)
+    suspend fun flattenMerge() {
+        val flowA = (1..5).asFlow().onEach { delay(200) }
+        val flowB = flowOf("one", "two", "three", "four", "five").onEach {
+            delay(500)
+        }
+        flowOf(flowA, flowB).flattenMerge().collect {
+            println(it)
+        }
+    }
+
+    /**
+     * flatMapMerge:
+     * 由map、flattenMerge 操作符实现
+     */
+    suspend fun flatMapMerge() {
+        (1..5).asFlow().flatMapMerge {
+            flow {
+                emit(it)
+                delay(1000)
+                emit("string + $it")
+            }
+        }.collect {
+            println(it)
+        }
+    }
+
+    /**
+     * flatMapMerge 和 flatMapConcat 都是将一个 flow 转换成另一个流。
+     * 区别在于：
+     * flatMapMerge 不会等待内部的 flow 完成 ，
+     * 而调用 flatMapConcat 后，collect 函数在收集新值之前会等待 flatMapConcat 内部的 flow 完成。
+     */
+    suspend fun flatMapContact() {
+        (1..5).asFlow().flatMapConcat {
+            flow {
+                emit(it)
+                delay(1000)
+                emit("string + $it")
+            }
+        }.collect {
+            println(it)
+        }
+    }
+
+    /**
+     * flatMapLatest:
+     * 当发射了新值之后，上个 flow 就会被取消。
+     */
+    suspend fun flatMapLatest() {
+        (1..5).asFlow().onEach {
+            delay(1000)
+        }.flatMapLatest {
+            flow {
+                println("begin flatMapLatest $it")
+                delay(2000)
+                emit("string + $it")
+                println("end flatMapLatest $it")
+            }
+        }.collect {
+            println(it)
+        }
+    }
+
+    /**
+     * StateFlow【后续需深入研究与 LiveData的差异】:
+     * StateFlow 是一个状态容器式可观察数据流，可以向其收集器发出当前状态更新和新状态更新。还可通过其 value 属性读取当前状态值。
+     * 如需更新状态并将其发送到数据流，请为 MutableStateFlow 类的 value 属性分配一个新值。
+     *
+     * 在 Android 中，StateFlow 非常适合需要让可变状态保持可观察的类。
+     */
+    suspend fun testStateFlow(scope: CoroutineScope) {
+        val test = Test()
+        test.getApi(scope)
+
+        scope.launch(Dispatchers.IO) {
+            test.state.collect{
+                printWithThreadInfo(it)
+            }
+        }
+
+        scope.launch(Dispatchers.IO) {
+            test.state.collect{
+                printWithThreadInfo(it)
+            }
+        }
+
+    }
+
+    /**
+     * SharedFlow：
+     * 如果只是需要管理一系列状态更新(即事件流)，而非管理当前状态.则可以使用 SharedFlow 共享流。
+     * 如果对发出的一连串值感兴趣，则这API十分方便。相比 LiveData 的版本控制，SharedFlow 则更灵活、更强大。
+     * SharedFlow 可以配置对历史发射的数据进行订阅，适合用来处理对于事件的监听。
+     */
+    suspend fun testSharedFlow(scope: CoroutineScope) {
+        val test = SharedFlowTest()
+        test.getApi(scope)
+        val job = scope.launch(Dispatchers.IO) {
+            delay(3000)
+            test.state.collect{
+                println("---collect1: $it")
+            }
+        }
+        delay(5000)
+        // 取消任务， 避免泄漏
+        job.cancel()
+    }
+
 }

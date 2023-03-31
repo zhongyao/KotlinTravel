@@ -48,7 +48,7 @@ fun main() {
 
     runBlocking {
 //        testChannel(this)
-        testFlow()
+        testFlow(this)
     }
 
 }
@@ -65,7 +65,7 @@ suspend fun testChannel(coroutineScope: CoroutineScope) {
 /**
  * 数据流Flow调用
  */
-suspend fun testFlow() {
+suspend fun testFlow(scope: CoroutineScope) {
 //    TestFlow.createFlow().collect {
 //        println(it)
 //    }
@@ -105,7 +105,14 @@ suspend fun testFlow() {
 //    TestFlow.transform()
 //    TestFlow.filter()
 //    TestFlow.zip()
-    TestFlow.combine()
+//    TestFlow.combine()
+//    TestFlow.flattenContact()
+//    TestFlow.flattenMerge()
+//    TestFlow.flatMapMerge()
+//    TestFlow.flatMapLatest()
+//    TestFlow.testStateFlow(scope)
+    TestFlow.testSharedFlow(scope)
+
 }
 
 fun largerNum(num1: Int, num2: Int): Int {
