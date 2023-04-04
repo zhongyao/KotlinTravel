@@ -5,6 +5,7 @@ import com.hongri.kotlin.chapter2.CellPhone
 import com.hongri.kotlin.chapter2.CellPhone2
 import com.hongri.kotlin.chapter2.Singleton
 import com.hongri.kotlin.chapter2.Student
+import com.hongri.kotlin.chapter5.lettersCount
 import com.hongri.kotlin.flow.TestFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.runBlocking
@@ -45,10 +46,13 @@ fun main() {
 
     //单例调用
     Singleton.singletonTest()
+    //扩展函数调用
+    val count = "abc123xyz@@".lettersCount()
+    println("count:$count")
 
     runBlocking {
 //        testChannel(this)
-        testFlow(this)
+//        testFlow(this)
     }
 
 }
