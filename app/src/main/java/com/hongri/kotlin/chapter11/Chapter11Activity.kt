@@ -207,7 +207,7 @@ class Chapter11Activity : AppCompatActivity() {
      * 调用挂起函数
      * coroutineScope跟runBlocking函数区别：
      * 1、coroutineScope只会阻塞当前协程，既不影响其他协程，也不影响任何线程，因此不会造成性能上的问题
-     * 2、runBlocking由于会阻塞当前线程，如果再主线程中调用的话，可能会造成页面卡死。
+     * 2、runBlocking由于会阻塞当前线程，如果在主线程中调用的话，可能会造成页面卡死。
      */
     private suspend fun printDot() = coroutineScope {
         launch {

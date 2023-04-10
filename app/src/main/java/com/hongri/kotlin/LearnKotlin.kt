@@ -6,6 +6,7 @@ import com.hongri.kotlin.chapter2.CellPhone2
 import com.hongri.kotlin.chapter2.Singleton
 import com.hongri.kotlin.chapter2.Student
 import com.hongri.kotlin.chapter5.lettersCount
+import com.hongri.kotlin.coroutine.TestCoroutine
 import com.hongri.kotlin.flow.TestFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.runBlocking
@@ -53,8 +54,21 @@ fun main() {
     runBlocking {
 //        testChannel(this)
 //        testFlow(this)
+        testCoroutine(this)
     }
 
+}
+
+/**
+ * 协程Coroutine调用
+ */
+suspend fun testCoroutine(coroutineScope: CoroutineScope) {
+//    TestCoroutine.coroutineScope(coroutineScope)
+//    TestCoroutine.coroutineCancel(coroutineScope)
+//    TestCoroutine.async(coroutineScope)
+//    TestCoroutine.timeout(coroutineScope)
+//    TestCoroutine.asyncMulti(coroutineScope)
+    TestCoroutine.coroutineDataSync(coroutineScope)
 }
 
 /**
