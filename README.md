@@ -15,3 +15,4 @@
 
 ### Kotlin教程
 #### [Android开发必备Kotlin核心技术](https://doc.devio.org/as/book/docs/Part1/Android%E5%BC%80%E5%8F%91%E5%BF%85%E5%A4%87Kotlin%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF)
+#### [Kotlin视频教程-扔物线](https://rengwuxian.com/tag/kotlin/)
