@@ -4,6 +4,7 @@ package com.hongri.kotlin.function
  * @author：zhongyao
  * @date：2023/5/12
  * @description：
+ * @reference:https://juejin.cn/post/6868179386344931342#heading-5
  */
 
 fun main() {
