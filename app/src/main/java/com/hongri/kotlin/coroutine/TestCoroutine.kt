@@ -16,7 +16,9 @@ import kotlin.system.measureTimeMillis
  * @author：zhongyao
  * @date：2023/4/10
  * @description：
- * @reference：https://www.cnblogs.com/joy99/p/15805916.html
+ * @reference：
+ * https://www.cnblogs.com/joy99/p/15805916.html
+ * https://bbs.huaweicloud.com/blogs/363080
  *
  * 协程设计的初衷是为了解决并发问题，可以更方便的处理多线程协作的任务
  * 协程就是一个封装好的线程框架 + 状态机
