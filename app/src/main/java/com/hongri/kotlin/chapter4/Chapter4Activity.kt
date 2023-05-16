@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.hongri.kotlin.R
 import kotlinx.android.synthetic.main.activity_chapter4.*
-
+const val name: String = "yaoge"
 class Chapter4Activity : AppCompatActivity(), View.OnClickListener {
     private val instance by lazy { this }//这里使用了委托，表示只有使用到instance才会执行该段代码
     override fun onCreate(savedInstanceState: Bundle?) {
